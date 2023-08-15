@@ -1,0 +1,40 @@
+class card
+    #attributes
+    card rank 
+    card suits
+    value of card
+    #behavior
+   '__init__(self,rank,suit)': initialize card with rank and suit
+    'get_value(self)': get value of card
+    '__str__(self)': return a human-readable representation of the card
+class deck
+    #attributes
+    list of card objects(52 cards)
+    #behavior
+    '__init__(self)': initialize the deck with a list of cards
+    'shuffle(self)': shuffle the deckdeal a card from the deck
+    '__str__(self)': return a human-readable representation of the deck
+class player
+    #attributes
+    player's hand
+    #behavior
+    '__init__(self)': initialize the player's hand
+    'add_card(self, card)': add a card to players hand
+    'get_hand_value(self)': calculate value of player's hand
+    '__str__(self)': return a human-readable representation of player's hand.
+class dealer(inherits from player)
+    #behavior
+    'play(self, deck)': dealer's play logic - hit until hand value is 17 or greater
+    'reveal_all_cards(self)': reveal all dealer's cards
+class game
+    #attributes
+    player object
+    dealer object
+    deck object
+    #behavior
+    '__init__(self)': initialize the game with player, dealer, and deck objects
+    'start(self)': start game, dealing initial cards and executing player and dealer turns
+    'player_turn(self)': allow player to play their turn
+    'dealer_turn(self)': allow dealer to play their turn
+    'display_results(self)': determine and display the game ooutcome.
+
