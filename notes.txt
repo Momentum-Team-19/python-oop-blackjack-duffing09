@@ -1,3 +1,45 @@
+class card
+    #attributes
+    card rank 
+    card suits
+    value of card
+    #behavior
+   '__init__(self,rank,suit)': initialize card with rank and suit
+    'get_value(self)': get value of card
+    '__str__(self)': return a human-readable representation of the card
+class deck
+    #attributes
+    list of card objects(52 cards)
+    #behavior
+    '__init__(self)': initialize the deck with a list of cards
+    'shuffle(self)': shuffle the deckdeal a card from the deck
+    '__str__(self)': return a human-readable representation of the deck
+class player
+    #attributes
+    player's hand
+    #behavior
+    '__init__(self)': initialize the player's hand
+    'add_card(self, card)': add a card to players hand
+    'get_hand_value(self)': calculate value of player's hand
+    '__str__(self)': return a human-readable representation of player's hand.
+class dealer(inherits from player)
+    #behavior
+    'play(self, deck)': dealer's play logic - hit until hand value is 17 or greater
+    'reveal_all_cards(self)': reveal all dealer's cards
+class game
+    #attributes
+    player object
+    dealer object
+    deck object
+    #behavior
+    '__init__(self)': initialize the game with player, dealer, and deck objects
+    'start(self)': start game, dealing initial cards and executing player and dealer turns
+    'player_turn(self)': allow player to play their turn
+    'dealer_turn(self)': allow dealer to play their turn
+    'display_results(self)': determine and display the game ooutcome.
+
+
+
 import random
 import colorama
 from colorama import Fore, Style, Back
@@ -44,19 +86,6 @@ class Player:
         self.name = input("Please enter your name: ")
         self.hand = []
         self.score = 0
-        self.balance = 100 #initial balance
-    
-    def place_bet(self):
-        while True:
-            try:
-                bet = int(input(f"{self.name}, your current balance is {self.balance}. Place your bet: "))
-                if 0 <= bet <= self.balance:
-                    self.balance -= bet
-                    return bet
-                else: 
-                    print("Invalid bet. Enter a valid amount.")
-            except ValueError:
-                print("Invalid input. Enter a valid number.")
 
 
 class Dealer:
@@ -74,7 +103,6 @@ class Game:
         self.dealer = Dealer()
 
     def play_game(self):
-        bet = self.player.place_bet()
         self.dealer.hand.append(self.deck.draw_card())
         while len(self.player.hand) < 2:
             self.player.hand.append(self.deck.draw_card())
@@ -93,10 +121,10 @@ class Game:
         print(self.dealer.score)
         if self.player.score == 21 or self.dealer.score == 21:
             if self.dealer.score < 21:
-                print("Player got blackjack!")
+                print("Player has blackjack!")
                 return
             elif self.player.score < 21:
-                print("Dealer got blackjack!")
+                print("Dealer has blackjack!")
                 return
             else:
                 print("You pushed!")
@@ -132,20 +160,6 @@ class Game:
         else:
             print("You chose to stay")
 
-    def declare_winner(self):
-        if self.player.score > 21:
-            print('Dealer won the hand')
-        elif self.dealer.score > 21:
-            print('Player won')
-        elif self.player.score <= 21 and self.dealer.score <= 21:
-            if self.player.score == self.dealer.score:
-                print("Push")
-            elif self.player.score > self.dealer.score:
-                print("Player wins")
-                self.player.score += 2 * self.bet
-            else:
-                print
-    
     def dealer_hit(self):
         print("Dealer's turn:")
         while self.dealer.score < 17:
@@ -167,41 +181,20 @@ class Game:
 new_game = Game()
 new_game.play_game()
 
-# while True:
-#     def __init__(self):
-#         if self.player.score > 21:
-#             print('Dealer won the hand')
-#         elif self.dealer.score > 21:
-#             print('Player won')
-#         elif self.player.score <= 21 and self.dealer.score <= 21:
-#             if self.player.score == self.dealer.score:
-#                 print("Push")
-#             elif self.player.score > self.dealer.score:
-#                 print("Player wins")
-#                 self.player.score += 2 * self.bet
-#             else:
-#                 print
-    # new_game.play_game()
-    # if new_game.player.score > 21:
-    #     print("Player busts!")
-    # elif new_game.dealer.score > 21:
-    #     print("Dealer busts!")
-    #     new_game.player.score += 2 * new_game.bet
-    # elif new_game.player.score > new_game.dealer.score:
-    #     print("Player wins!")
-    #     new_game.player.balance += 2 * new_game.bet
-    # elif new_game.dealer.score > new_game.player.score:
-    #     print("Dealer wins!")
-    # else:
-    #     print("Push!")
-    
-    # print(f"Player's balance: {new_game.player.balance}")
-    # play_again = input("Play again? (y/n) ").lower()
-    # if play_again != "y":
-    #     break
-
 
 
 
 
 # Write your blackjack game here.
+
+
+
+
+
+
+
+while True:
+    new_game.play_game()
+    play_again = input("Place Bet? (y/n) ").lower()
+    if play_again != "y":
+        break
