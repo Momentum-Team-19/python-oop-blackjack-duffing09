@@ -74,7 +74,7 @@ class Game:
         self.dealer = Dealer()
 
     def play_game(self):
-        bet = self.player.place_bet()
+        self.bet = self.player.place_bet()
         self.dealer.hand.append(self.deck.draw_card())
         while len(self.player.hand) < 2:
             self.player.hand.append(self.deck.draw_card())
@@ -105,6 +105,7 @@ class Game:
             self.player_hit()
         if self.player.score <= 21:
             self.dealer_hit()
+        self.declare_winner()
 
     def player_hit(self):
         action = None
@@ -137,14 +138,17 @@ class Game:
             print('Dealer won the hand')
         elif self.dealer.score > 21:
             print('Player won')
+            self.player.balance += 2 * self.bet
+            
         elif self.player.score <= 21 and self.dealer.score <= 21:
             if self.player.score == self.dealer.score:
                 print("Push")
             elif self.player.score > self.dealer.score:
                 print("Player wins")
-                self.player.score += 2 * self.bet
+                self.player.balance += 2 * self.bet
             else:
-                print
+                print("Dealer won!")
+        print(f'Balance: {self.player.balance}')
     
     def dealer_hit(self):
         print("Dealer's turn:")
